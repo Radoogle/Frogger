@@ -8,7 +8,7 @@
     <meta name="keywords" content="html, css, js, javascript, game">
     <title>Frogger</title>
     <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </head>
 <body>
     <header>
@@ -103,6 +103,10 @@
         <div></div>
         <div></div>
     </div>
+    <div class="winning-message" id="winningMessage">
+        <div class="data-winning-message-text"></div>
+        <button id="restartButton">Restart</button>
+      </div>
     <div class="pre-footer">
         <p>*This game is part of the course mentioned bellow, enhanced with a personal touch by &copy; Radu Harangus</p>
         <p>Learn JavaScript by Building 7 Games - Full Course from Ania Kubow.</p>

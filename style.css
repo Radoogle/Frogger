@@ -109,6 +109,12 @@ h2 {
     background-color: brown;
 }
 
+.l1::after {
+    content: '';
+    background-color: yellow;
+    border-radius: 50%;
+}
+
 .l4, .l5 {
     background-color: lightblue;
 }
@@ -116,3 +122,26 @@ h2 {
 .frog {
     background-color: green;
 }
+
+.winning-message {
+    display: none;
+    position:fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .8);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+  }
+
+  .winning-message.show {
+    display: flex;
+  }
+
+  #restartButton {
+    font-size: 2rem;
+  }

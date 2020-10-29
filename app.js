@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => { 
+//document.addEventListener('DOMContentLoaded', startGame());
     const squares = document.querySelectorAll('.grid div');
     const timeLeft = document.querySelector('#time-left');
     const result = document.querySelector('#result');
@@ -8,10 +8,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const logsLeft = document.querySelectorAll('.log-left');
     const logsRight = document.querySelectorAll('.log-right');
     const width = 9;
+    const winningMessageElement = document.getElementById('winningMessage');
+    const winningMessageTextElement = document.querySelector('.data-winning-message-text');
+    const restartBtn = document.querySelector('#restartButton');
     let currentIndex = 76;
     let currentTime = 20;
     let timerId;
-    
+
+startGame();
+
+restartBtn.addEventListener('click', startGame);
+
+function startGame() {
+    // restartBtn.removeEventListener('click', startGame);
+    timerId = null;
+    // console.log("initial timerId: ", timerId);
+    // let test = null;
+    // if (test) console.log("test is true");
+    squares[currentIndex].classList.remove('frog');
+    currentIndex = 76;
+    // const restartBtn = document.querySelector('#restartButton');
+    // restartBtn.addEventListener('click', location.reload());
+    winningMessageElement.classList.remove('show');
+    currentTime = 20;
+    timeLeft.innerHTML = currentTime;
+    //reseting the board
+    // document.removeEventListener('keyup', moveFrog);
+    // console.log("removeEventListener('keyup')");
+    // squares.forEach(square => {
+    //     square.classList.remove('frog');
+    // });
+
     // render frog on starting block
     squares[currentIndex].classList.add('frog');
 
@@ -136,10 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // rules to win Frogger
     function win() {
         if (squares[4].classList.contains('frog')) {
-            result.innerHTML = 'YOU WON!';
+            //result.innerHTML = 'YOU WON!';
             squares[currentIndex].classList.remove('frog');
             clearInterval(timerId);
+            timerId = null;
             document.removeEventListener('keyup', moveFrog);
+            // console.log("removeEventListener('keyup')");
+            startBtn.removeEventListener('click', startButton);
+            winningMessageTextElement.innerText = 'YOU WON!';
+            winningMessageElement.classList.add('show');
         }
     }
 
@@ -148,10 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if ((currentTime === 0) || (squares[currentIndex].classList.contains('c1'))
         || (squares[currentIndex].classList.contains('l5'))
         || (squares[currentIndex].classList.contains('l4'))) {
-            result.innerHTML = 'YOU LOST!';
+            // result.innerHTML = 'YOU LOST!';
             squares[currentIndex].classList.remove('frog');
             clearInterval(timerId);
+            timerId = null;
             document.removeEventListener('keyup', moveFrog);
+            // console.log("removeEventListener('keyup')");
+            startBtn.removeEventListener('click', startButton);
+            winningMessageTextElement.innerText = 'YOU LOST!';
+            winningMessageElement.classList.add('show');
         }
     }
 
@@ -184,15 +221,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // to start and pause the game
-    startBtn.addEventListener('click', () => {
+    startBtn.addEventListener('click', startButton);
+    
+    function startButton() {
+        //console.log("timerId: ", timerId);
         if (timerId) {
             clearInterval(timerId);
+            // console.log("timerId = true: ", timerId);
             timerId = null;
             document.removeEventListener('keyup', moveFrog);
+            // console.log("removeEventListener('keyup')");
         } else {
           timerId = setInterval(movePieces, 1000);
           document.addEventListener('keyup', moveFrog);
+        //   console.log("timerId = false: ", timerId);
+        //   console.log("addEventListener('keyup')");
         }
-    });
-});
+    } 
+}
 
